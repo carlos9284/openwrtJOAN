@@ -68,6 +68,8 @@ jobs:
         name: Make a release
         runs-on: self-hosted
         needs: build
+        permissions:
+          contents: write
 
         steps:
             - name: Get the current date
