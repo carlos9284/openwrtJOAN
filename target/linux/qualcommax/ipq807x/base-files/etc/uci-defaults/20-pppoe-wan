@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Crear VLAN 20 sobre la interfaz WAN física
+uci batch << 'EOF'
+set network.wan_vlan=device
+set network.wan_vlan.type=8021q
+set network.wan_vlan.ifname=wan
+set network.wan_vlan.vid=20
+set network.wan_vlan.name=wan.20
+set network.wan=interface
+set network.wan.proto=pppoe
+set network.wan.device=wan.20
+set network.wan.username=181981986@digi
+set network.wan.password=hzpbUrm2
+set network.wan.ipv6=auto
+EOF
+
+uci commit network
+
+# Timezone
+uci set system.@system[0].timezone='CET-1CEST,M3.5.0,M10.5.0/3'
+uci set system.@system[0].zonename='Europe/Madrid'
+uci commit system
+
+exit 0
